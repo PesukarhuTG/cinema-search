@@ -24,3 +24,8 @@ Used [API TMDB](https://www.themoviedb.org/)
         const url = `${BASE_URL}trending/${type}/${period}?api_key=${API_KEY}${LANG}&page=${page}`;
         return await getData(url);
     }
+    
+### Task 3: Generating movie cards by nav links clicking
+Used [API TMDB](https://www.themoviedb.org/)<br>
+![movie cards](https://github.com/PesukarhuTG/cinema-search/blob/master/preview/gif-link-navmenu.gif)
+<br>**Additional task:** if movie rate equals '0', it shows '-' instead of '0'
