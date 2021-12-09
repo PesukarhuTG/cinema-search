@@ -11,7 +11,7 @@ const renderCards = (data) => { //get 12 card items
         link.className = 'other-films__link';
 
         if (item.vote_average === 0) {
-            link.dataset.rating = '—'
+            link.dataset.rating = '—';
         } else {
             link.dataset.rating = item.vote_average;
         }
