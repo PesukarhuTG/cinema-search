@@ -1,4 +1,5 @@
 import { getTrends } from './services.js';
+import renderCards from './renderCards.js';
 
 const filmWeek = document.querySelector('.film-week');
 
@@ -22,7 +23,11 @@ const firstRender = ({ original_name, original_title, name, title, vote_average,
 
 const renderVideo = async () => {
     const data = await getTrends(); //get data from the server and save in prop
-    firstRender(data.results[0]);
+    const [firstCard, ...otherCards] = data.results; //from all data choose first element + the rest of data
+
+    firstRender(firstCard); //first elem is transfered to func
+    otherCards.length = 12; // full length is 19 items. We need 12
+    renderCards(otherCards); //12 items are transfered to func
 };
 
 export default renderVideo;
