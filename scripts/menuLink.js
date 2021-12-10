@@ -1,4 +1,4 @@
-import { getPopular, getTop, getTrends } from "./services.js";
+import { getPopular, getTop, getTrends } from './services.js';
 import renderCards from './renderCards.js';
 
 const filmsTitle = document.querySelector('.other-films__title');
@@ -8,6 +8,7 @@ const getNav = document.querySelectorAll('.get-nav');
 const menuLink = () => {
     getNav.forEach(nav => {
         nav.addEventListener('click', e => {
+            filmsTitle.style.fontSize = '';
             const target = e.target.closest('.get-nav__link');
 
             if (target) {
@@ -24,26 +25,25 @@ const menuLink = () => {
                 //popular movies
                 if (target.classList.contains('get-nav__link_popular-movies')) {
                     getPopular('movie')
-                        //.then(data => console.log(data.results))
-                        .then(data => renderCards(data.results))
+                        .then(data => renderCards(data.results, 'movie'))
                 }
 
                 //popular serials
                 if (target.classList.contains('get-nav__link_popular-tv')) {
-                    getTop('tv')
-                        .then(data => renderCards(data.results))
+                    getPopular('tv')
+                        .then(data => renderCards(data.results, 'tv'))
                 }
 
                 //TOP movies
                 if (target.classList.contains('get-nav__link_top-movies')) {
-                    getPopular('movie')
-                        .then(data => renderCards(data.results))
+                    getTop('movie')
+                        .then(data => renderCards(data.results, 'movie'))
                 }
 
                 //TOP serials
                 if (target.classList.contains('get-nav__link_top-tv')) {
                     getTop('tv')
-                        .then(data => renderCards(data.results))
+                        .then(data => renderCards(data.results, 'tv'))
                 }
             }
         })

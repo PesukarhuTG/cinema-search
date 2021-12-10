@@ -14,23 +14,23 @@ const search = () => {
 
         searchGet(searchInput.value)
             .then(data => {
-                if (data.results.length) { //check 'are there elements?'
+                if (data.results.length) {
+                    filmsTitle.style.fontSize = '';
                     renderCards(data.results);
                 } else {
-                    throw 'К сожалению, по вашему запросу ничего не найдено'
+                    throw 'Ooops, по вашему запросу ничего не найдено'
                 }
             })
             .then(() => {
-                filmWeek.remove(); //delete from a page
+                filmWeek.remove();
                 filmsTitle.textContent = 'Результат поиска'
             })
             .catch(err => {
+                filmWeek.remove();
+                filmsTitle.style.fontSize = '35px';
                 filmsTitle.textContent = err;
-                console.error('Unfortunately, your request did not match any results');
             })
     })
-
-
 }
 
 export default search;

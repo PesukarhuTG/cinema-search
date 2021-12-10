@@ -3,7 +3,7 @@ import renderCards from './renderCards.js';
 
 const filmWeek = document.querySelector('.film-week');
 
-const firstRender = ({ original_name, original_title, name, title, vote_average, backdrop_path }, { key }) => {
+const firstRender = ({ original_name, original_title, name, title, vote_average, backdrop_path }, key) => {
 
     filmWeek.innerHTML = `
         <div class="container film-week__container" data-rating="${vote_average}">
@@ -14,21 +14,20 @@ const firstRender = ({ original_name, original_title, name, title, vote_average,
                     <p class="film-week__title_origin">${original_name || original_title}</p>
             </div>
             <h2 class="film-week__title">${name || title}</h2>
-            ${key ? `<a class="film-week__watch-trailer tube" href="https://youtu.be/${key}" aria-label="смотреть трейлер"></a>` : ''}
+            ${key ? (`<a class="film-week__watch-trailer tube" href="https://youtu.be/${key}" aria-label="смотреть трейлер"></a>`) : ''}
         </div>
     `;
 }
 
 const renderVideo = async () => {
-    const data = await getTrends(); //get data from the server and save in prop
 
-    const [firstCard, ...otherCards] = data.results; //from all data choose first element + the rest of data
+    const data = await getTrends(); //get trends from DB
+    const [firstCard, ...otherCards] = data.results; //from all trends choose first element + the rest of trends
     otherCards.length = 12; // full length is 19 items. We need 12
-
-    const video = await getVideo(firstCard.id, firstCard.media_type);
-
-    firstRender(firstCard, video.results[0]); //first elem is transfered to func + last trailer
     renderCards(otherCards); //12 items are transfered to func
+
+    const firstCardVideo = await getVideo(firstCard.id, firstCard.media_type); //get trailer for main picture from DB
+    firstRender(firstCard, firstCardVideo.results[0].key); //first elem is transfered to func + last trailer's key
 };
 
 export default renderVideo;
