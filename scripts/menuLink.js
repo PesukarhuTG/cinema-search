@@ -24,6 +24,7 @@ const menuLink = () => {
                 //popular movies
                 if (target.classList.contains('get-nav__link_popular-movies')) {
                     getPopular('movie')
+                        //.then(data => console.log(data.results))
                         .then(data => renderCards(data.results))
                 }
 

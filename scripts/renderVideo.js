@@ -14,7 +14,6 @@ const firstRender = ({ original_name, original_title, name, title, vote_average,
                     <p class="film-week__title_origin">${original_name || original_title}</p>
             </div>
             <h2 class="film-week__title">${name || title}</h2>
-
             ${key ? `<a class="film-week__watch-trailer tube" href="https://youtu.be/${key}" aria-label="смотреть трейлер"></a>` : ''}
         </div>
     `;
