@@ -4,7 +4,7 @@ The educational project is based on API TMDB via Fetch. [Preview link](https://p
 ### Task 1: Create a burger menu
 ![burger menu gif](https://github.com/PesukarhuTG/cinema-search/blob/master/preview/gif-burger-menu.gif)
 
-### Task 2: Get data from server
+### Task 2: Get TRENDS
 Used [API TMDB](https://www.themoviedb.org/) 
 
     const API_KEY = '*****************************';
@@ -25,7 +25,81 @@ Used [API TMDB](https://www.themoviedb.org/)
         return await getData(url);
     }
     
-### Task 3: Generating movie cards by nav links clicking
-Used [API TMDB](https://www.themoviedb.org/)<br>
+### Task 3: Get POPULAR and TOP movies/tv shows
 ![movie cards](https://github.com/PesukarhuTG/cinema-search/blob/master/preview/gif-link-navmenu.gif)
-<br>**Additional task:** if movie rate equals '0', it shows '-' instead of '0'
+
+#### Create requests to get data from [API TMDB](https://www.themoviedb.org/)
+    export const getTop = async (type, page = 1) => {
+       const url = `${BASE_URL}${type}/top_rated?api_key=${API_KEY}${LANG}&page=${page}`;
+       return await getData(url);
+    };
+    
+    export const getPopular = async (type, page = 1) => {
+       const url = `${BASE_URL}${type}/popular?api_key=${API_KEY}${LANG}&page=${page}`;
+       return await getData(url);
+    };
+
+### Task 4: Get VIDEO TRAILERS
+#### Create a request to get data from [API TMDB](https://www.themoviedb.org/)
+    export const getVideo = async (id, type) => {
+        const url = `${BASE_URL}${type}/${id}/videos?api_key=${API_KEY}${LANG}`;
+        return await getData(url);
+    };
+
+#### Get last trailer for the Main picture and rending at the page:
+    const renderVideo = async () => {
+        /.../
+        const firstCardVideo = await getVideo(firstCard.id, firstCard.media_type);
+        firstRender(firstCard, firstCardVideo.results[0].key);
+    };
+    
+#### Get trailers for movie cards and rending at the page
+For example, Popular movies:<br>
+    
+    //Click nav menu
+    if (target.classList.contains('get-nav__link_popular-movies')) {
+        getPopular('movie')
+            .then(data => renderCards(data.results, 'movie'))
+    }
+    
+    //Rendering
+    const renderCards = (data, type) => {
+        /.../
+    Promise.all(data.map(async (item) => {
+        const mediaType = item.media_type ? item.media_type : type;
+        const trailer = await getVideo(item.id, mediaType);
+        /.../
+    })
+    ).then(cards => listCard.append(...cards));
+    };
+   
+### Task 5: Create SEARCH
+#### Create a request to get data from [API TMDB](https://www.themoviedb.org/)
+    export const search = async (query, page) => {
+        const url = `${BASE_URL}search/multi?api_key=${API_KEY}${LANG}&page=${page}&include_adult=false&query=${query}`;
+        return await getData(url);
+    };
+    
+#### Search request
+    const search* = () => {
+        searchForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (!searchInput.value) return;
+            
+            search(searchInput.value)
+                .then(data => {
+                   if (data.results.length) {
+                   renderCards(data.results);
+                 } else {
+                   throw 'Ooops, по вашему запросу ничего не найдено'
+                 }
+             })
+            .then(() => {
+                /.../
+            })
+            .catch(err => {
+                /.../
+            })
+        })}
+    
+    
