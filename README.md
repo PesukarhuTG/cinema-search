@@ -1,10 +1,23 @@
 # ONLINE CINEMA 
-The educational project is based on API TMDB via Fetch. [Preview link](https://pesukarhutg.github.io/cinema-search/)
+The study project is based on TMDB API via Fetch.
 
-### Task 1: Create a burger menu
+*
+*
+*
+
+<h2 align="center">UPD 2022: unfortunately, <a href="https://pesukarhutg.github.io/cinema-search/" target="_blank">Deploy link</a> does not work due to restrictions for Russian users</h2>
+
+*
+*
+*
+
+
+Task 1: Create a burger menu ======================================
+
 ![burger menu gif](https://github.com/PesukarhuTG/cinema-search/blob/master/preview/gif-burger-menu.gif)
 
-### Task 2: Get TRENDS
+Task 2: Get TRENDS ================================================
+
 Used [API TMDB](https://www.themoviedb.org/) 
 
     const API_KEY = '*****************************';
@@ -25,10 +38,13 @@ Used [API TMDB](https://www.themoviedb.org/)
         return await getData(url);
     }
     
-### Task 3: Get POPULAR and TOP movies/tv shows
+Task 3: Get POPULAR and TOP movies/tv shows =======================
+
 ![movie cards](https://github.com/PesukarhuTG/cinema-search/blob/master/preview/gif-link-navmenu.gif)
 
-#### Create requests to get data from [API TMDB](https://www.themoviedb.org/)
+
+
+**Create requests to get data from [API TMDB](https://www.themoviedb.org/)** <br/>
     export const getTop = async (type, page = 1) => {
        const url = `${BASE_URL}${type}/top_rated?api_key=${API_KEY}${LANG}&page=${page}`;
        return await getData(url);
@@ -39,21 +55,22 @@ Used [API TMDB](https://www.themoviedb.org/)
        return await getData(url);
     };
 
-### Task 4: Get VIDEO TRAILERS
-#### Create a request to get data from [API TMDB](https://www.themoviedb.org/)
+Task 4: Get VIDEO TRAILERS ======================================
+
+**Create a request to get data from [API TMDB](https://www.themoviedb.org/)** <br/>
     export const getVideo = async (id, type) => {
         const url = `${BASE_URL}${type}/${id}/videos?api_key=${API_KEY}${LANG}`;
         return await getData(url);
     };
 
-#### Get last trailer for the Main picture and rending at the page:
+**Get last trailer for the Main picture and rending at the page:** <br/>
     const renderVideo = async () => {
         /.../
         const firstCardVideo = await getVideo(firstCard.id, firstCard.media_type);
         firstRender(firstCard, firstCardVideo.results[0].key);
     };
     
-#### Get trailers for movie cards and rending at the page
+**Get trailers for movie cards and rending at the page** <br/>
 For example, Popular movies:<br>
     
     //Click nav menu
@@ -73,14 +90,15 @@ For example, Popular movies:<br>
     ).then(cards => listCard.append(...cards));
     };
    
-### Task 5: Create SEARCH
-#### Create a request to get data from [API TMDB](https://www.themoviedb.org/)
+Task 5: Create SEARCH ======================================
+
+**Create a request to get data from [API TMDB](https://www.themoviedb.org/)** <br/>
     export const search = async (query, page) => {
         const url = `${BASE_URL}search/multi?api_key=${API_KEY}${LANG}&page=${page}&include_adult=false&query=${query}`;
         return await getData(url);
     };
     
-#### Search request
+**Search reques** <br/>
     const search* = () => {
         searchForm.addEventListener('submit', e => {
             e.preventDefault();
@@ -101,5 +119,4 @@ For example, Popular movies:<br>
                 /.../
             })
         })}
-    
     
